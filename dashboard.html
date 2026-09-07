@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asistencias</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="app-header">
+    <h1 class="app-title">Asistencias<small id="today-label"></small></h1>
+    <div class="header-right">
+      <span id="user-email"></span>
+      <button class="link-btn" id="logout-btn">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-view="view-attendance">Registrar asistencia</button>
+    <button class="tab-btn" data-view="view-employees">Empleados</button>
+    <button class="tab-btn" data-view="view-reports">Reportes mensuales</button>
+  </nav>
+
+  <main>
+
+    <!-- ===== VISTA: REGISTRAR ASISTENCIA ===== -->
+    <section id="view-attendance" class="view active">
+      <div class="section-head">
+        <h2>Asistencia del día</h2>
+        <span class="hint mono" id="attendance-date-label"></span>
+      </div>
+      <div id="punch-grid" class="punch-grid"></div>
+      <div id="attendance-empty" class="empty-state" style="display:none;">
+        Aún no hay empleados registrados. Ve a la pestaña "Empleados" para agregar el primero.
+      </div>
+    </section>
+
+    <!-- ===== VISTA: EMPLEADOS ===== -->
+    <section id="view-employees" class="view">
+      <div class="section-head">
+        <h2>Empleados</h2>
+        <span class="hint mono" id="employee-count-label"></span>
+      </div>
+
+      <form id="employee-form" class="inline-form">
+        <div class="field">
+          <label for="emp-name">Nombre</label>
+          <input type="text" id="emp-name" required placeholder="Nombre completo">
+        </div>
+        <div class="field">
+          <label for="emp-role">Puesto</label>
+          <input type="text" id="emp-role" placeholder="Ej. Cajero">
+        </div>
+        <button type="submit" class="btn-sm">Agregar empleado</button>
+      </form>
+
+      <div class="card" style="padding:0;">
+        <table>
+          <thead>
+            <tr><th>Nombre</th><th>Puesto</th><th></th></tr>
+          </thead>
+          <tbody id="employee-table-body"></tbody>
+        </table>
+        <div id="employee-empty" class="empty-state" style="display:none;">
+          Todavía no has agregado empleados.
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== VISTA: REPORTES ===== -->
+    <section id="view-reports" class="view">
+      <div class="section-head">
+        <h2>Reporte mensual</h2>
+      </div>
+
+      <div class="inline-form">
+        <div class="field">
+          <label for="report-month">Mes</label>
+          <input type="month" id="report-month">
+        </div>
+        <div class="field">
+          <label for="report-employee">Empleado</label>
+          <select id="report-employee">
+            <option value="">Todos</option>
+          </select>
+        </div>
+        <button class="btn-ghost" id="report-load-btn">Ver reporte</button>
+      </div>
+
+      <div class="summary-row" id="report-summary"></div>
+
+      <div class="card" style="padding:0;">
+        <table>
+          <thead>
+            <tr><th>Fecha</th><th>Empleado</th><th>Estado</th><th>Hora</th></tr>
+          </thead>
+          <tbody id="report-table-body"></tbody>
+        </table>
+        <div id="report-empty" class="empty-state" style="display:none;">
+          No hay registros para este mes todavía.
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="foot-note">Asistencias — registro guardado en la nube, mes con mes.</footer>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
